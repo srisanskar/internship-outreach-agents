@@ -1,6 +1,6 @@
 # Internship Outreach Multi-Agent System
 
-Capstone project for Agentic AI Learners' Space 2026 — Week 4.
+Capstone project for Agentic AI Learners' Space 2026 - Week 4.
 
 ## Problem statement
 
@@ -13,24 +13,24 @@ different jobs, so instead of writing one script that does all of it badly,
 I split it across agents that each do one part well.
 
 This felt like a genuine multi-agent problem rather than "one agent with
-extra steps" — the research step, the writing step, and the quality-check
+extra steps" - the research step, the writing step, and the quality-check
 step all need pretty different logic and none of them can really do the
 others' job.
 
-## Agents (2+ required — I used 3)
+## Agents (2+ required - I used 3)
 
-1. **Research agent** — given a company name and (optionally) a careers/about
+1. **Research agent** - given a company name and (optionally) a careers/about
    page URL, opens the page with a real headless browser and pulls the
    visible text. If there's no URL, or the page fails to load, it falls back
    to a Wikipedia search for general info about the company, and if even
    that comes up empty, it'll just use a manually typed note instead.
 
-2. **Writer agent** — takes whatever the research agent found plus a short
+2. **Writer agent** - takes whatever the research agent found plus a short
    blurb about my own project background, and drafts a subject + body for
    the email. If a previous draft got rejected it also gets that feedback so
    it can fix the actual problem instead of just trying again blind.
 
-3. **Critic agent** — checks the draft: is it long enough, does it avoid
+3. **Critic agent** - checks the draft: is it long enough, does it avoid
    generic boilerplate phrases, does it actually mention something from the
    research (not just restate the input). If it fails any of these it sends
    feedback back.
@@ -43,8 +43,8 @@ research → writer → critic → supervisor ─┬─(reject, attempts < 3)→
 ```
 
 I went with Supervisor because there's one point in the flow where a real
-decision has to get made — after the critic checks a draft, something has to
-decide whether to loop back or move forward — and everywhere else is just a
+decision has to get made - after the critic checks a draft, something has to
+decide whether to loop back or move forward - and everywhere else is just a
 fixed sequence. The supervisor node makes that call using LangGraph's
 `Command` object, which routes to whichever node it returns instead of
 needing separate conditional-edge functions everywhere.
@@ -63,11 +63,11 @@ extra complexity for no real benefit here.
 
 ## Failure handling (brief asks for at least 1, this has 3)
 
-- **Retry with feedback** — critic rejects → writer gets specific feedback
+- **Retry with feedback** - critic rejects → writer gets specific feedback
   and tries again, max 3 times so it can't loop forever.
-- **Fallback chain in research** — real browser scrape → Wikipedia → manual
+- **Fallback chain in research** - real browser scrape → Wikipedia → manual
   notes, in that order, so a bad URL doesn't just kill the whole run.
-- **Human approval gate** — nothing gets sent without a y/n prompt, and if
+- **Human approval gate** - nothing gets sent without a y/n prompt, and if
   the writer/critic loop never converges after 3 tries it gets forced to
   this same checkpoint instead of sending something bad or just failing
   silently.
@@ -102,11 +102,11 @@ if I extend this.
 
 ## Files
 
-- `agents.py` — state definition + research/writer/critic node functions
-- `browser_tools.py` — headless browser fetch for research (Playwright)
-- `orchestrator.py` — supervisor + human checkpoint + send node + graph
+- `agents.py` - state definition + research/writer/critic node functions
+- `browser_tools.py` - headless browser fetch for research (Playwright)
+- `orchestrator.py` - supervisor + human checkpoint + send node + graph
   wiring + CLI entry point
-- `gmail_mcp_server.py` — Gmail MCP server, from Week 3
+- `gmail_mcp_server.py` - Gmail MCP server, from Week 3
 
 ## Setup
 
@@ -130,14 +130,14 @@ GMAIL_APP_PASSWORD=your_gmail_app_password
 python orchestrator.py
 ```
 
-It'll ask for the company name, a careers/about page URL (optional — you can
+It'll ask for the company name, a careers/about page URL (optional - you can
 paste a job description instead if you skip it), and the recipient's
 name/email. Then it researches, drafts, critiques, loops if needed, asks you
 to approve, and sends.
 
 ## Testing
 
-I tested the graph's actual routing logic — does it retry correctly, does it
+I tested the graph's actual routing logic - does it retry correctly, does it
 stop after 3 attempts, does it escalate to human review properly — using
 stubbed research/writer/send functions, since I don't always have Groq/Gmail
 access in every environment I write code in. Caught and fixed a real bug
