@@ -1,0 +1,9 @@
+langchain==0.3.25
+langchain-groq==0.2.5
+langchain-community==0.3.25
+langchainhub==0.1.21
+langgraph==0.4.8
+duckduckgo-search==8.0.5
+langchain-mcp-adapters==0.1.0
+mcp==1.9.4
+python-dotenv==1.0.1
