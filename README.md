@@ -75,7 +75,7 @@ extra complexity for no real benefit here.
 ## What I reused from earlier weeks (and what's new)
 
 - The Gmail MCP server (`gmail_mcp_server.py`) is basically unchanged from
-  Week 3 — self-hosted with the `mcp` Python SDK since the npm package the
+  Week 3 - self-hosted with the `mcp` Python SDK since the npm package the
   assignment originally suggested was still 404ing.
 - The critic agent's approach (word count / generic-phrase check / keyword
   grounding) is the same idea as Week 3's cold-email `review_node`, just
